@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.10)
 
 include("$ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake")
 
@@ -13,9 +13,4 @@ pico_enable_stdio_uart(dc33_fw_rp2040 0)
 pico_add_extra_outputs(dc33_fw_rp2040)
 
 install(TARGETS dc33_fw_rp2040 DESTINATION bin)
-install(
-  FILES
-  ${output_path}$<IF:$<BOOL:$<TARGET_PROPERTY:dc33_fw_rp2040,OUTPUT_NAME>>,$<TARGET_PROPERTY:dc33_fw_rp2040,OUTPUT_NAME>,$<TARGET_PROPERTY:dc33_fw_rp2040,NAME>>.uf2
-  DESTINATION
-  bin
-)
+install(FILES $<TARGET_FILE_DIR:dc33_fw_rp2040>/dc33_fw_rp2040.uf2 DESTINATION bin)
